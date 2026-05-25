@@ -41,9 +41,6 @@ Antes de compilar, es necesario instalar las herramientas esenciales de desarrol
 sudo apt update
 sudo apt install -y build-essential libpcre3-dev zlib1g-dev libssl-dev libxml2-dev libsqlite3-dev libcurl4-openssl-dev libpng-dev libjpeg-dev libicu-dev pkg-config
 
-CAPTURAAAAAAAAAAAAA
-
-
 
 ### Paso 2.2: Creación de Usuarios y Grupos de Sistemas
 Se procedió a estructurar los usuarios encargados de la ejecución de los servicios, restringiendo el acceso a la Shell por motivos estrictos de seguridad (nologin):
@@ -54,7 +51,7 @@ sudo useradd -r -M -s /usr/sbin/nologin nginx
 # Crear usuario de sistema para PHP asignándolo simultáneamente al grupo nginx
 sudo useradd -r -M -s /usr/sbin/nologin -g nginx php
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.3: Descarga y Compilación de NGINX (v1.31.x)
 Se descargó el código fuente de la rama de desarrollo 1.31.x de NGINX, se desempaquetó y se configuró con las directivas del prefix de destino, usuario y grupo del sistema:
@@ -71,7 +68,7 @@ cd nginx-1.31.0
 make
 sudo make install
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.4: Registro del Servicio SystemD para NGINX
 Para cumplir con la automatización del arranque, se creó y registró un Slice de Servicio de SystemD mediante el archivo /etc/systemd/system/nginx.service:
@@ -98,7 +95,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable nginx.service
 sudo systemctl start nginx.service
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.5: Descarga y Compilación de PHP (v8.4.x) con Soporte Extendido
 Se descargó la versión más reciente de la rama PHP 8.4.x, configurando explícitamente el módulo php-fpm, el prefix común asignado, los usuarios correspondientes y las extensiones obligatorias para imágenes (gd), internacionalización (intl) y fechas:
@@ -121,7 +118,7 @@ cd php-8.4.0
 make
 sudo make install
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.6: Configuración del Socket UNIX de PHP-FPM
 Para enlazar PHP y NGINX, se configuró el archivo del pool de conexiones (ubicado por defecto de la compilación en /srv/nginx/etc/php-fpm.d/www.conf o renombrado desde www.conf.default). Se modificaron las directivas para forzar el uso del Socket UNIX con los permisos asignados:
@@ -134,7 +131,7 @@ listen.owner = php
 listen.group = nginx
 listen.mode = 0660
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.7: Registro del Servicio SystemD para PHP-FPM
 Se generó el archivo de control para la automatización de PHP-FPM en la ruta /etc/systemd/system/php-fpm8.4.service:
@@ -158,7 +155,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable php-fpm8.4.service
 sudo systemctl start php-fpm8.4.service
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ### Paso 2.8: Configuración de la Comunicación FastCGI en NGINX
 Se editó el bloque de servidores del archivo principal de NGINX localizado en /srv/nginx/conf/nginx.conf para indicarle que debe redirigir las peticiones .php hacia el socket UNIX creado por PHP-FPM:
@@ -199,7 +196,7 @@ Verificación de la sintaxis y reinicio de los servicios web:
 sudo /srv/nginx/sbin/nginx -t
 sudo systemctl restart nginx
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ## 3. COMPROBACIÓN DE FUNCIONAMIENTO
 Para comprobar la correcta interconexión operativa entre ambos servicios de red compilados, se creó un script ejecutable de diagnóstico en la raíz de documentos establecida /srv/nginx/html/phpinfo.php:
@@ -215,7 +212,7 @@ phpinfo();
 ## Resultado Exitoso en el Navegador Web:
 Al consultar desde el navegador mediante la dirección IP local del servidor (http://<IP_LOCAL>/phpinfo.php), se despliega exitosamente la interfaz de diagnóstico del intérprete, donde se certifica de forma visual la versión activa de PHP 8.4.x, el servidor web NGINX 1.31.x, y el correcto procesamiento de los módulos internos de fechas, imágenes (GD) e internacionalización (intl).
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 
 ## 4. CONCLUSIONES
 La compilación nativa desde código fuente permite prescindir de paquetes innecesarios para el sistema, aislando las rutas operativas en un prefijo ordenado (/srv/nginx), garantizando el máximo rendimiento del entorno en producción.
