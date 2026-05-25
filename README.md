@@ -41,9 +41,10 @@ Antes de compilar, es necesario instalar las herramientas esenciales de desarrol
 sudo apt update
 sudo apt install -y build-essential libpcre3-dev zlib1g-dev libssl-dev libxml2-dev libsqlite3-dev libcurl4-openssl-dev libpng-dev libjpeg-dev libicu-dev pkg-config
 
-CAPTURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+<img width="773" height="322" alt="image" src="https://github.com/user-attachments/assets/5577bb0c-22e8-4212-8a4e-c154e5fff2aa" />
 
-### Paso 2.2: Creacion de Usuarios y Grupos de Sistemas
+
+### Paso 2.2: Creación de Usuarios y Grupos de Sistemas
 Se procedió a estructurar los usuarios encargados de la ejecución de los servicios, restringiendo el acceso a la Shell por motivos estrictos de seguridad (nologin):
 
 # Crear grupo y usuario de sistema para NGINX
