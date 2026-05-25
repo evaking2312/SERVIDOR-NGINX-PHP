@@ -41,7 +41,8 @@ Antes de compilar, es necesario instalar las herramientas esenciales de desarrol
 sudo apt update
 sudo apt install -y build-essential libpcre3-dev zlib1g-dev libssl-dev libxml2-dev libsqlite3-dev libcurl4-openssl-dev libpng-dev libjpeg-dev libicu-dev pkg-config
 
-<img width="773" height="322" alt="image" src="https://github.com/user-attachments/assets/5577bb0c-22e8-4212-8a4e-c154e5fff2aa" />
+![Paso 2.2: Creación de Usuarios y Grupos](https://github.com/user-attachments/assets/dd373f94-4b0b-4e0d-b06c-df4a1df6b968)
+
 
 
 ### Paso 2.2: Creación de Usuarios y Grupos de Sistemas
